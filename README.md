@@ -1,6 +1,6 @@
 # bbfd
 ## An webscrapping tool to get information about blazblue charatecters from BBCF and BBTAG from dustloop
-
+### Library Requeriments: requests, bs4
 ### Usage:
 
 ```python
