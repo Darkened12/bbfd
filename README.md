@@ -1,5 +1,5 @@
 # bbfd
-## An webscrapping tool to get information about blazblue charatecters from BBCF and BBTAG from dustloop
+## An webscrapping tool to get information from dustloop about blazblue charatecters from BBCF and BBTAG
 ### Library Requeriments: requests, bs4
 ### Usage:
 
