@@ -47,7 +47,7 @@ class Character:
 
         sprite_name = None
 
-        # temporary fix for the 214/236B meme
+        # temporary fix for the 214/236B/22x/5AD meme
         if '214b' in frame_data_name.lower() and not '214bc' in frame_data_name.lower():
             for move in sprites.keys():
                 if '214A/B' in move:
@@ -56,6 +56,21 @@ class Character:
         elif '236b' in frame_data_name.lower() and not '236bc' in frame_data_name.lower():
             for move in sprites.keys():
                 if '236A/B' in move:
+                    sprite_name = move
+                    break
+
+        elif '22' in frame_data_name.lower():
+            for move in sprites.keys():
+                if '22A/B' in move and '22c' not in frame_data_name.lower():
+                    sprite_name = move
+                    break
+                elif '22A/B/C' in move and '22c' in frame_data_name.lower():
+                    sprite_name = move
+                    break
+
+        elif 'reversal' in frame_data_name.lower():
+            for move in sprites.keys():
+                if '5AD' in move:
                     sprite_name = move
                     break
 
@@ -79,7 +94,8 @@ class Character:
                         if move.lower() in split_name.lower():
                             sprite_name = move
                             break
-                elif move.lower() in frame_data_name.lower():
+                elif move.lower() in frame_data_name.lower() and '22' not in find_move_name:
+                    print('ok')
                     sprite_name = move
                     break
                 elif find_move_name.lower() in move.lower():
@@ -144,19 +160,18 @@ class Character:
 
     def get_general_info(self):
         """Parse general information about the character"""
-        table = Character._get_main_page(self._sprites).find('table', {'class':'stripe'})
-        
+        table = Character._get_main_page(self._sprites).find('table', {'class': 'stripe'})
+
         result = []
         for td in table.find_all('td'):
             if td.get_text() != '':
                 result.append(td.get_text())
-    
+
         return {
             result[0]: result[1],
             result[2]: result[3],
             result[4]: result[5]
         }
-    
 
     def _get_high_quality_sprite(self, sprite_link):
         sprite_div = Character._get_main_page(sprite_link).find('div', {'class': 'fullImageLink'})
@@ -253,7 +268,7 @@ class Character:
 
         return result
 
-
+		
 class MoveNotFound(Exception):
     """Couldn't find a matching move name"""
 
